@@ -1,0 +1,11 @@
+=admin=
+admin@gmail.com
+admin123
+
+=pimpinan=
+muhamadaldisetiawan02@gmail.com
+muhamad123
+
+=sales
+lutfi@gmail.com
+lutfi123
