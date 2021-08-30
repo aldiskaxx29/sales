@@ -73,49 +73,24 @@
         <form action="" method="post">
           <div class="form-group">
             <label>Kode Produk</label>
-            <select class="form-control" name="id">
+            <select class="form-control" name="id_produk">
               <option value="">-- Pilihan --</option>
               <?php foreach ($produk as $pr): ?>
                 <option value="<?= $pr->id_produk ?>"><?= $pr->kode_produk ?> <?= $pr->nama_produk ?></option>
               <?php endforeach ?>
             </select>
-            <?= form_error('id','<small class="text-danger">','</small>') ?>
+            <?= form_error('id_produk','<small class="text-danger">','</small>') ?>
           </div>
-<!--           <div class="form-group">
-            <label>Nama Produk</label>
-            
-            <select class="form-control" name="nama_produk">
-              <option value="">-- Pilihan --</option>
-              <?php foreach ($produk as $pr): ?>
-              <option value="<?= $pr->nama_produk ?>"><?= $pr->nama_produk ?></option>
-              <?php endforeach ?>
-            </select>
-            <?= form_error('nama_produk','<small class="text-danger">','</small>') ?>
-          </div> -->
           <div class="form-group">
-            <label>Nama Toko</label>
-            <select class="form-control" name="nama_toko">
+            <label>Kode Toko</label>
+            <select class="form-control" name="kode_toko">
               <option value="">-- Pilihan --</option>
               <?php foreach ($toko as $to): ?>
-                <option value="<?= $to->nama_toko ?>"><?= $to->nama_toko ?></option>
+                <option value="<?= $to->id ?>"><?= $to->kode_toko ?> <?= $to->nama_toko ?></option>
               <?php endforeach ?>
             </select>
             <?= form_error('nama_toko','<small class="text-danger">','</small>') ?>
           </div>
-          <div class="form-group">
-            <label>Alamat</label>
-            <textarea class="form-control" name="alamat"></textarea>
-            <?= form_error('alamat','<small class="text-danger">','</small>') ?>
-          </div>
-<!--           <div class="form-group">
-            <label>Kategori</label>
-            <select class="form-control" name="kategori">
-              <option value="">-- Pilihan --</option>
-              <?php foreach ($kategori as $k): ?>
-                <option value="<?= $k->kategori ?>"><?= $k->kategori ?></option>
-              <?php endforeach ?>
-            </select>
-          </div> -->
           <div class="form-group">
             <label>Qty</label>
             <input type="number" name="qty" class="form-control">

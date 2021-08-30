@@ -1,15 +1,10 @@
 <?php  
 
 class Produk extends CI_Controller{
-	// public function index(){
-	// 	$data['title'] = 'Data Produk';
-	// 	$data['produk'] = $this->db->get('produk')->result();
-	// 	$this->load->view('templates/pegawai/header', $data);
-	// 	$this->load->view('templates/pegawai/sidebar');
-	// 	$this->load->view('templates/pegawai/topbar');
-	// 	$this->load->view('Pegawai/produk/data', $data);
-	// 	$this->load->view('templates/pegawai/footer');
-	// }
+	public function __construct(){
+		parent::__construct();
+		auth_check();
+	}
 
 	public function index(){
 		if (!$this->session->userdata('email')) {
@@ -19,12 +14,12 @@ class Produk extends CI_Controller{
 		$data['user'] 	= $this->M_admin->get_where();
 		$data['kode'] 	= $this->M_admin->kodeProduk();
 		// $data['produk'] = $this->db->get('produk')->result();
-		$data['produk'] = $this->M_admin->get('produk');
+		$data['produk'] = $this->M_admin->joinKategori();
 		$data['kategori'] = $this->M_admin->get('tb_kategori');
-		$this->form_validation->set_rules('kode_produk','Kode produk','required|trim|is_unique[produk.kode_produk]', [
-			'required' => 'Tidak Boleh Kosong',
-			'is_unique' => 'Data Tidak Boleh Sama'
-		]);
+		// $this->form_validation->set_rules('kode_produk','Kode produk','required|trim|is_unique[produk.kode_produk]', [
+		// 	'required' => 'Tidak Boleh Kosong',
+		// 	'is_unique' => 'Data Tidak Boleh Sama'
+		// ]);
 		$this->form_validation->set_rules('nama_produk','Nama produk','required|trim', [
 			'required' => 'Tidak Boleh Kosong',
 		]);
@@ -38,8 +33,9 @@ class Produk extends CI_Controller{
 		$this->form_validation->set_rules('deskripsi','deskripsi','required|trim', [
 			'required' => 'Tidak Boleh Kosong',
 		]);
-		$this->form_validation->set_rules('stok','Stok','required|trim', [
+		$this->form_validation->set_rules('stok','Stok','required|trim|numeric', [
 			'required' => 'Tidak Boleh Kosong',
+			'numeric' => 'Tidak boleh huruf harus angka'
 		]);
 		// if (!$this->input->post('foto')) {
 		// 	$this->form_validation->set_rules('foto','Foto','required|trim');
@@ -170,13 +166,3 @@ class Produk extends CI_Controller{
 }
 
 ?>
-<!-- 				if ($this->upload->do_upload('image')) {
-					$image_old = $data['mobil']['gambar'];
-					if ($image_old != 'default.jpg'){
-						unlink(FCPATH . 'assets/assets_admin/foto/' .$image_old);
-					}
-
-					$image_new = $this->upload->data('file_name');
-					$this->db->set('gambar', $image_new);
-				}
- -->

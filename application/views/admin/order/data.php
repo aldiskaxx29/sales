@@ -147,7 +147,7 @@
             <select class="form-control" name="status">
               <option value="1">Success</option>
               <option value="2">Kirim</option>
-              <option value="3">Gagal</option>
+              <!-- <option value="3">Gagal</option> -->
             </select>
           </div>
           <div class="form-group float-right">

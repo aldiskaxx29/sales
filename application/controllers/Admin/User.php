@@ -3,6 +3,11 @@
 
 class User extends CI_Controller
 {	
+	public function __construct(){
+		parent::__construct();
+		auth_check();
+	}
+	
 	public function index(){
 		if (!$this->session->userdata('email')) {
 			redirect('Auth');
@@ -25,20 +30,22 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('username','Username','required|trim', [
 			'required' => 'Tidak Boeleh Kosong',
 		]);
-		$this->form_validation->set_rules('phone','No Telepon','required|trim', [
+		$this->form_validation->set_rules('phone','No Telepon','required|trim|numeric', [
 			'required' => 'Tidak Boeleh Kosong',
+			'numeric' => 'Tidak boleh huruf harus angka'
 		]);
 		$this->form_validation->set_rules('email','Email','required|trim|valid_email|is_unique[user.email]', [
 			'required' => 'Tidak Boeleh Kosong',
-			'is_unique' => 'Makanya kalo kemana keman identitas'
+			'is_unique' => 'Email sudah pernah di gunakan',
+			'valid_email' => 'Format yang d masukan harus email'
 		]);
 		$this->form_validation->set_rules('password','Password','required|trim|matches[password1]', [
 			'required' => 'Tidak Boeleh Kosong',
-			'matches'  => 'Password Tdaik Samain'
+			'matches'  => 'Password Tidak Sama'
 		]);
 		$this->form_validation->set_rules('password1','Confirmasi Password','required|trim|matches[password]', [
 			'required' => 'Tidak Boeleh Kosong',
-			'matches'  => 'Password Tdaik Samain'
+			'matches'  => 'Password Tidak Sama'
 		]);
 		$this->form_validation->set_rules('company','Company','required|trim', [
 			'required' => 'Tidak Boeleh Kosong',

@@ -1,6 +1,11 @@
 <?php  
 
 class Order extends CI_Controller{
+	public function __construct(){
+		parent::__construct();
+		auth_check();
+	}
+	
 	public function index(){
 		if (!$this->session->userdata('email')) {
 			redirect('Auth');
@@ -18,23 +23,18 @@ class Order extends CI_Controller{
 		$data['kategori'] = $this->db->get('tb_kategori')->result();
 		// $ada = $this->M_pegawai->db();
 		// var_dump($data['toko']);die;
-		$this->form_validation->set_rules('id','Kode Produk','required|trim', [
-			'required' => 'Tidak Boeleh Kosong',
+		$this->form_validation->set_rules('id_produk','Kode Produk','required|trim', [
+			'required' => 'Tidak boleh Kosong',
 		]);
-		$this->form_validation->set_rules('nama_toko','Nama Toko','required|trim', [
-			'required' => 'Tidak Boeleh Kosong',
+		$this->form_validation->set_rules('kode_toko','Kode Toko','required|trim', [
+			'required' => 'Tidak boleh Kosong',
 		]);
-		$this->form_validation->set_rules('alamat','Alamat','required|trim', [
-			'required' => 'Tidak Boeleh Kosong',
-		]);
-		// $this->form_validation->set_rules('nama_produk','Nama Produk','required|trim', [
-		// 	'required' => 'Tidak Boeleh Kosong',
-		// ]);
-		$this->form_validation->set_rules('qty','Nama Quantiity','required|trim', [
-			'required' => 'Tidak Boeleh Kosong',
+		$this->form_validation->set_rules('qty','Nama Quantiity','required|trim|numeric', [
+			'required' => 'Tidak boleh Kosong',
+			'numeric' => 'Tidak boleh huruf harus angka '
 		]);
 		$this->form_validation->set_rules('keterangan','Keterangan','required|trim', [
-			'required' => 'Tidak Boeleh Kosong',
+			'required' => 'Tidak boleh Kosong',
 		]);			
 
 		if ($this->form_validation->run() == false) {
@@ -46,14 +46,10 @@ class Order extends CI_Controller{
 		}else{
 			$cek_qty = $this->db->get('produk')->result();
 
-			$id_produk 		= $this->input->post('id');
-			$nama_toko 		= $this->input->post('nama_toko');
-			// $kategori 		= $this->input->post('kategori');
-			$alamat 		= $this->input->post('alamat');
-			// $nama_produk 	= $this->input->post('nama_produk');
+			$id_produk 		= $this->input->post('id_produk');
+			$id_toko 		= $this->input->post('kode_toko');
 			$qty 			= $this->input->post('qty');
 			$keterangan 	= $this->input->post('keterangan');
-			$qty 			= $this->input->post('qty');
 
 			$wh = $this->db->get_where('produk', ['id_produk' => $id_produk])->row_array();
 			// echo $wh['stok'];die;
@@ -68,12 +64,9 @@ class Order extends CI_Controller{
 
 			$data = [
 				'id_produk'			=> $id_produk,
+				'id_toko'			=> $id_toko,
 				'sales'				=> $this->session->userdata('username'),
 				'tgl_order' 		=> date('Y-m-d'),
-				'nama_toko' 		=> $nama_toko,
-				// 'kategori_produk'	=> $kategori,
-				'alamat' 			=> $alamat,
-				// 'nama_produk' 		=> $nama_produk,
 				'qty' 				=> $qty,
 				'keterangan' 		=> $keterangan,
 			];

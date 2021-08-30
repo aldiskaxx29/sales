@@ -33,10 +33,21 @@ class M_admin extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function joinKategori(){
+		$this->db->select('*');
+		$this->db->from('produk');
+		$this->db->join('tb_kategori','tb_kategori.id_kategori = produk.kategori_id');
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
 	public function join_order(){
 		$this->db->select('*');
 		$this->db->from('orderan');
 		$this->db->join('produk','produk.id_produk=orderan.id_produk');
+		$this->db->join('toko','toko.id=orderan.id_toko');
 		$this->db->where_in('status', [1,2,3]);
 		// $this->db->where('status', 0);
 		// $this->db->order_by('DESC');

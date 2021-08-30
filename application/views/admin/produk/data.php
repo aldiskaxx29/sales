@@ -36,7 +36,7 @@
                         <td><?= $no+1 ?></td>
                         <td><?= $pr->kode_produk ?></td>
                         <td><?= $pr->nama_produk ?></td>
-                        <td><?= $pr->kategori_produk ?></td>
+                        <td><?= $pr->kategori ?></td>
                         <td><?= $pr->harga_produk ?></td>
                         <td><?= $pr->deskripsi ?></td>
                         <td>
@@ -88,7 +88,7 @@
             <select class="form-control" name="kategori_produk">
               <option value="">-- Pilihan --</option>
               <?php foreach ($kategori as $k): ?>
-                <option value="<?= $k->kategori ?>"><?= $k->kategori ?></option>
+                <option value="<?= $k->id_kategori ?>"><?= $k->kategori ?></option>
               <?php endforeach ?>
             </select>
             <!-- <input type="text" name="kategori_produk" class="form-control"> -->

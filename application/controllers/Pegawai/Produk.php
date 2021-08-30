@@ -1,15 +1,10 @@
 <?php  
 
 class Produk extends CI_Controller{
-	// public function index(){
-	// 	$data['title'] = 'Data Produk';
-	// 	$data['produk'] = $this->db->get('produk')->result();
-	// 	$this->load->view('templates/pegawai/header', $data);
-	// 	$this->load->view('templates/pegawai/sidebar');
-	// 	$this->load->view('templates/pegawai/topbar');
-	// 	$this->load->view('Pegawai/produk/data', $data);
-	// 	$this->load->view('templates/pegawai/footer');
-	// }
+	public function __construct(){
+		parent::__construct();
+		auth_check();
+	}
 
 	public function index(){
 		if (!$this->session->userdata('email')) {
@@ -20,20 +15,20 @@ class Produk extends CI_Controller{
 		// $data['produk'] = $this->db->get('produk')->result();
 		$data['produk'] = $this->M_pegawai->join_order();
 		$this->form_validation->set_rules('kode_produk','Kode produk','required|trim|is_unique[produk.kode_produk]', [
-			'required' => 'Tidak Boeleh Kosong',
+			'required' => 'Tidak boleh Kosong',
 		]);
 		$this->form_validation->set_rules('nama_produk','Nama produk','required|trim', [
-			'required' => 'Tidak Boeleh Kosong',
+			'required' => 'Tidak boleh Kosong',
 		]);
 		$this->form_validation->set_rules('harga_produk','Harga Produk','required|trim|numeric', [
-			'required' => 'Tidak Boeleh Kosong',
-			'nimeric'  => 'infi Di sebaigai bagus banget anakan '
+			'required' => 'Tidak boleh Kosong',
+			'numeric'  => 'Tidak boleh huruf harus angka'
 		]);
 		$this->form_validation->set_rules('deskripsi','deskripsi','required|trim', [
-			'required' => 'Tidak Boeleh Kosong',
+			'required' => 'Tidak boleh Kosong',
 		]);
 		$this->form_validation->set_rules('qty','Quantity','required|trim', [
-			'required' => 'Tidak Boeleh Kosong',
+			'required' => 'Tidak boleh Kosong',
 		]);
 		// if (!$this->input->post('foto')) {
 		// 	$this->form_validation->set_rules('foto','Foto','required|trim');

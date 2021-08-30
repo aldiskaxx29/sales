@@ -38,7 +38,8 @@ class M_pegawai extends CI_Model{
 		$query = $this->session->userdata('username');
 		$this->db->select('*');
 		$this->db->from('orderan');
-		$this->db->join('produk','produk.id_produk=orderan.id_produk');
+		$this->db->join('produk','produk.id_produk = orderan.id_produk');
+		$this->db->join('toko','toko.id = orderan.id_toko');
 		// $this->db->where('tgl_order', date('Y-m-d'));
 		$this->db->where('sales', $this->session->userdata('username'));
 		$query = $this->db->get();

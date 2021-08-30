@@ -24,7 +24,7 @@
                       </div>
                       <div class="card-body">
                         <?php  
-                          $this->db->from('barang');
+                          $this->db->from('produk');
                           echo $this->db->count_all_results();
                         ?>
                       </div>

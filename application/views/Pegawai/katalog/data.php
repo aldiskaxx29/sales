@@ -25,7 +25,7 @@
                       <th>Harga Produk</th>
                       <th>Deskription</th>
                       <th>Gambar</th>
-                      <th>Qty</th>
+                      <th>Stok</th>
                       <!-- <th>Action</th> -->
                     </tr>
                   </thead>
@@ -40,7 +40,7 @@
                         <td>
                           <img src="<?= base_url('/assets/img/produk/' .$pr->gambar ) ?>" width="50">
                           </td>
-                        <td><?= $pr->qty ?></td>
+                        <td><?= $pr->stok ?></td>
                        <!--  <td>
                           <a href="<?= base_url('Pegawai/Produk/delete/' . $pr->id_produk) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Di Hapus')"><i class="fas fa-trash"></i></a>
                           <a href="" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModalEdit<?= $pr->id_produk  ?>"><i class="fas fa-edit"></i></a>

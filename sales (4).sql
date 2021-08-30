@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2021 at 08:27 AM
+-- Generation Time: Aug 30, 2021 at 06:30 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -55,31 +55,6 @@ INSERT INTO `absen` (`id_absen`, `tgl_absen`, `nama`, `foto1`, `foto2`, `foto3`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barang`
---
-
-CREATE TABLE `barang` (
-  `id_barang` int(11) NOT NULL,
-  `kode_barang` varchar(10) NOT NULL,
-  `nama_barang` varchar(30) NOT NULL,
-  `deskripsi` text NOT NULL,
-  `gambar` varchar(125) NOT NULL,
-  `harga_barang` int(11) NOT NULL,
-  `stok` varchar(11) NOT NULL,
-  `created` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `barang`
---
-
-INSERT INTO `barang` (`id_barang`, `kode_barang`, `nama_barang`, `deskripsi`, `gambar`, `harga_barang`, `stok`, `created`) VALUES
-(1, 'BRG0001', 'Hampers Natal', 'barang mas bagus', 'defaul.jpg', 100000, '40', '2021-08-02'),
-(2, 'BRG0002', 'Makanan', 'enak tau', 'defaul.jpg', 100000, '55', '2021-08-11');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `orderan`
 --
 
@@ -89,30 +64,10 @@ CREATE TABLE `orderan` (
   `id_toko` int(11) NOT NULL,
   `sales` varchar(125) NOT NULL,
   `tgl_order` date NOT NULL,
-  `nama_toko` varchar(100) NOT NULL,
-  `alamat` varchar(200) NOT NULL,
   `qty` varchar(11) NOT NULL,
-  `keterangan` varchar(250) NOT NULL,
+  `keterangan` text NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orderan`
---
-
-INSERT INTO `orderan` (`id`, `id_produk`, `id_toko`, `sales`, `tgl_order`, `nama_toko`, `alamat`, `qty`, `keterangan`, `status`) VALUES
-(2, 2, 0, '', '2021-07-31', 'ruang rumi', 'sepatan', '3', 'Makanan Enak', 1),
-(3, 3, 0, '', '2021-07-31', 'Toko Rumah', 'sepatn timur', '1', 'kualitasnya baik', 1),
-(4, 4, 0, '', '2021-07-31', 'toko hampers', 'sepatan', '2', 'bagus', 2),
-(6, 1, 0, '', '2021-08-02', 'rumah serba ada', 'tanah merah', '2', 'bagus bre', 1),
-(8, 2, 0, '', '2021-08-02', 'FC ELEKTRIK', 'sepatan', '4', 'bagus', 3),
-(9, 3, 0, '', '2021-08-10', 'Seblak mania', 'cikokol', '3', 'barang berkualitas', 0),
-(12, 1, 0, '', '2021-08-10', 'Seblak mania', 'jauh', '33', 'barang masi berkualitas', 0),
-(13, 12, 0, '', '2021-08-10', 'Seblak mania', 'sepatan', '2', 'ada', 0),
-(14, 3, 0, '', '2021-08-10', 'Seblak Kuy', 'sebrang', '3', 'bagus dan berkulitas', 1),
-(15, 3, 0, 'lutfi', '2021-08-20', 'Pasar online', 'tanah merah sepatan', '2', 'banyak', 0),
-(16, 4, 0, 'lutfi', '2021-08-20', 'FC ELEKTRIK', 'ada', '4', 'ada', 0),
-(17, 4, 0, 'lutfi', '2021-08-20', 'Pasar Lama', 'aaa', '4', 'aaaa', 0);
 
 --
 -- Triggers `orderan`
@@ -129,33 +84,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pegawai`
---
-
-CREATE TABLE `pegawai` (
-  `id` int(11) NOT NULL,
-  `kode_sales` varchar(20) NOT NULL,
-  `nama_sales` varchar(30) NOT NULL,
-  `ttl` date NOT NULL,
-  `no_telpon` int(20) NOT NULL,
-  `email` varchar(20) NOT NULL,
-  `alamat` varchar(170) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pegawai`
---
-
-INSERT INTO `pegawai` (`id`, `kode_sales`, `nama_sales`, `ttl`, `no_telpon`, `email`, `alamat`) VALUES
-(3, '1325ghb', 'dara ayu', '2021-06-30', 2147483647, 'darayu02@gmail.com', 'cimone'),
-(4, 'sss-221', 'dara ayu', '2021-06-24', 2147483647, 'darayu02@gmail.com', 'cimone'),
-(5, 'sss-221', 'dara ayu', '2021-07-09', 2147483647, 'darayu02@gmail.com', 'cimone'),
-(6, 'gfdh45', 'dara ayu', '2021-07-07', 2147483647, 'darayu02@gmail.com', 'cimone'),
-(7, '12gr', 'risya', '2021-06-28', 42627299, 'ejwb@twn.vom', 'citra');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `produk`
 --
 
@@ -163,7 +91,7 @@ CREATE TABLE `produk` (
   `id_produk` int(11) NOT NULL,
   `kode_produk` varchar(10) NOT NULL,
   `nama_produk` varchar(30) NOT NULL,
-  `kategori_produk` varchar(30) NOT NULL,
+  `kategori_id` int(11) NOT NULL,
   `deskripsi` text NOT NULL,
   `gambar` varchar(125) NOT NULL,
   `harga_produk` varchar(13) NOT NULL,
@@ -174,13 +102,13 @@ CREATE TABLE `produk` (
 -- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `kode_produk`, `nama_produk`, `kategori_produk`, `deskripsi`, `gambar`, `harga_produk`, `stok`) VALUES
-(1, 'BRG00001', 'Hampers Natal', 'Hampers', 'barang dengan kualiitas terbaik', 'Basic_Elements__28141_29.jpg', '100000', '90'),
-(2, 'BRG00002', 'Hampers Imlek ', 'Spanduk', 'barang kualiitas terbaik dan bagus', 'default.jpg', '150000', '9'),
-(3, 'BRG00003', 'Box Custom', 'Box', 'terbaik', 'top3.png', '55000', '98'),
-(4, 'BRG00004', 'Box Natal', 'Box', 'Untuk kkeperluan natal', 'ttd.png', '95000', '2'),
-(12, 'BRG00005', 'Kabel Anti Air', 'Kabel', 'anti air', 'wa.png', '550000', '100'),
-(13, 'BRG00006', 'Vicenza', 'Hampers', 'hampers untukk teman', 'Untitled2.png', '125000', '5');
+INSERT INTO `produk` (`id_produk`, `kode_produk`, `nama_produk`, `kategori_id`, `deskripsi`, `gambar`, `harga_produk`, `stok`) VALUES
+(1, 'BRG00001', 'Hampers Natal', 6, 'barang dengan kualiitas terbaik', 'Basic_Elements__28141_29.jpg', '100000', '89'),
+(2, 'BRG00002', 'Hampers Imlek ', 1, 'barang kualiitas terbaik dan bagus', 'default.jpg', '150000', '9'),
+(3, 'BRG00003', 'Box Custom', 8, 'terbaik', 'top3.png', '55000', '97'),
+(4, 'BRG00004', 'Box Natal', 0, 'Untuk kkeperluan natal', 'ttd.png', '95000', '2'),
+(12, 'BRG00005', 'Kabel Anti Air', 4, 'anti air', 'wa.png', '550000', '100'),
+(13, 'BRG00006', 'Vicenza', 6, 'hampers untukk teman', 'Untitled2.png', '125000', '5');
 
 -- --------------------------------------------------------
 
@@ -273,23 +201,11 @@ ALTER TABLE `absen`
   ADD PRIMARY KEY (`id_absen`);
 
 --
--- Indexes for table `barang`
---
-ALTER TABLE `barang`
-  ADD PRIMARY KEY (`id_barang`);
-
---
 -- Indexes for table `orderan`
 --
 ALTER TABLE `orderan`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_produk` (`id_produk`);
-
---
--- Indexes for table `pegawai`
---
-ALTER TABLE `pegawai`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `produk`
@@ -326,22 +242,10 @@ ALTER TABLE `absen`
   MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `barang`
---
-ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `orderan`
 --
 ALTER TABLE `orderan`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `pegawai`
---
-ALTER TABLE `pegawai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `produk`

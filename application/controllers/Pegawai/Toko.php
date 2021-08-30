@@ -2,6 +2,11 @@
 <?php  
 
 class Toko extends CI_Controller{
+	public function __construct(){
+		parent::__construct();
+		auth_check();
+	}
+	
 	public function index(){
 		if (!$this->session->userdata('email')) {
 			redirect('Auth');
@@ -18,8 +23,9 @@ class Toko extends CI_Controller{
 			'required' => 'Tidak Boeleh Kosong',
 		]);
 		$this->form_validation->set_rules('alamat','Alamat','required|trim');
-		$this->form_validation->set_rules('no_telpon','No Telepon','required|trim', [
+		$this->form_validation->set_rules('no_telpon','No Telepon','required|trim|numeric', [
 			'required' => 'Tidak Boeleh Kosong',
+			'numeric' => 'Tidak boleh huruf harus angka'
 		]);
 		if ($this->form_validation->run() == false) {
 			$this->load->view('templates/header', $data);
